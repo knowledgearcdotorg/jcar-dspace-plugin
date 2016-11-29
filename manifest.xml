@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+    <update>
+        <name>JCar DSpace Plugin</name>
+        <description>Integrates DSpace information with Joomla! via DSpace's REST API.</description>
+        <element>plg_jcar_dspace</element>
+        <type>plugin</type>
+        <folder>jcar</folder>
+        <version>1.0.1</version>
+        <client>site</client>
+        <infourl title="JCar DSpace Plugin">https://github.com/knowledgearcdotorg/jcar-dspace-plugin/releases/tag/1.0.1</infourl>
+        <downloads>
+            <downloadurl type="full" format="zip">https://github.com/knowledgearcdotorg/jcar-dspace-plugin/releases/download/1.0.1/plg_jcar_dspace.zip</downloadurl>
+        </downloads>
+        <tags>
+            <tag>stable</tag>
+        </tags>
+        <targetplatform name="joomla" version="3.[456789]" />
+    </update>
+</updates>
