@@ -500,26 +500,30 @@ class PlgJCarDSpace extends JPlugin
                 for ($j = 0; $j < count($bitstreams); $j++) {
                     $bitstream = ArrayHelper::getValue($bitstreams, $j);
 
-                    if ((bool)$this->params->get('stream')) {
-                        $url = new JUri('index.php');
+                    if ($this->isBitstreamAccessible($bitstream)) {
+                        if ((bool)$this->params->get('stream')) {
+                            $url = new JUri('index.php');
 
-                        $url->setQuery(
-                            array(
-                                'option'=>'com_jcar',
-                                'view'=>'asset',
-                                'format'=>'raw',
-                                'id'=>$this->_name.':'.$bitstream->id,
-                                'name'=>$bitstream->name,
-                                'Itemid'=>JFactory::getApplication()->input->getInt('Itemid')));
+                            $url->setQuery(
+                                array(
+                                    'option'=>'com_jcar',
+                                    'view'=>'asset',
+                                    'format'=>'raw',
+                                    'id'=>$this->_name.':'.$bitstream->id,
+                                    'name'=>$bitstream->name,
+                                    'Itemid'=>JFactory::getApplication()->input->getInt('Itemid')));
+                        } else {
+                            $url = new JUri(
+                                $this->params->get('rest_url').
+                                '/bitstreams/'.
+                                $bitstream->id.
+                                '/download');
+                        }
+
+                        $bundles[$i]->bitstreams[$j]->url = (string)$url;
                     } else {
-                        $url = new JUri(
-                            $this->params->get('rest_url').
-                            '/bitstreams/'.
-                            $bitstream->id.
-                            '/download');
+                        $bundles[$i]->bitstreams[$j]->url = null;
                     }
-
-                    $bundles[$i]->bitstreams[$j]->url = (string)$url;
                 }
             }
 
@@ -530,6 +534,22 @@ class PlgJCarDSpace extends JPlugin
             throw new Exception(
                 JText::_('PLG_JCAR_DSPACE_ERROR_'.$response->code),
                 $response->code);
+        }
+    }
+
+    private function isBitstreamAccessible($bitstream)
+    {
+        $url = new JUri(
+            $this->params->get('rest_url').
+            '/bitstreams/'.$bitstream->id.'.xml');
+
+        $http = JHttpFactory::getHttp();
+        $response = $http->get($url);
+
+        if ((int)$response->code == 200) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
