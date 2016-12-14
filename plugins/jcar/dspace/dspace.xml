@@ -64,4 +64,8 @@
             </fieldset>
         </fields>
     </config>
+
+    <updateservers>
+        <server type="extension" priority="1" name="JCar DSpace Plugin"><![CDATA[https://raw.githubusercontent.com/knowledgearcdotorg/jcar-dspace-plugin/master/manifest.xml]]></server>
+    </updateservers>
 </extension>
