@@ -3,7 +3,7 @@
     <update>
         <name>JCar DSpace Plugin</name>
         <description>Integrates DSpace information with Joomla! via DSpace's REST API.</description>
-        <element>plg_jcar_dspace</element>
+        <element>dspace</element>
         <type>plugin</type>
         <folder>jcar</folder>
         <version>1.1.0</version>
